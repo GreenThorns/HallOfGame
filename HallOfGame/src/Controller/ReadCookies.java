@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import Model.Account;
 
 /**
- * Servlet implementation class Index
+ * Servlet implementation class ReadCookies
  */
-@WebServlet("/Index")
-public class Index extends HttpServlet {
+@WebServlet("/ReadCookies")
+public class ReadCookies extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Index() {
+    public ReadCookies() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,33 +31,25 @@ public class Index extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Cette fonction se lance dès qu'on arrive sur le site ou qu'on recharge la page
+		// TODO Auto-generated method stub
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		boolean cookie_found = false;
-		//On récupère les cookies du Browser et on regarde si on en a un qui appartient à HoG
+		//On récupère les cookies du Browser
 		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie r_c : cookies) {
-				if(r_c.getName().equals("HoG_user")) {
-					cookie_found = true;
-					//Le Cookie existe donc on passe directement à sa lecture
-					RequestDispatcher rd_showSession = request.getRequestDispatcher("/ReadCookies");
-					rd_showSession.forward(request, response);
-				}
-			}
-			
-			//Si il y a des cookies mais aucun qui appartient à HoG, on passe au formulaire de connexion
-			if(cookie_found) {
+		for (Cookie r_c : cookies) {
+			if(r_c.getName().equals("HoG_user")) { //Si il y a un cookie de session HoG
+				//On créé un objet Account qui contiendra toutes les informations de la DB qui sont liés à ce nom
+				Account admin = new Account(r_c.getValue(),"admin_pass",1);
+				request.setAttribute("connectedAccount", admin); //On ajoute l'objet à la requête
 				
-			} else {
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/loginform.jsp");
+				//Redirection Menu
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/menu.jsp");
 				rd.forward(request, response);
+			} else {
+				
 			}
-		//Si il n'y a aucun cookies, on passe au formulaire de connexion	
-		} else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/loginform.jsp");
-			rd.forward(request, response);
 		}
+			
 		
 		
 	}

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Model.Account;
+
 /**
  * Servlet implementation class CheckCredentials
  */
@@ -45,23 +47,26 @@ public class CheckCredentials extends HttpServlet {
 		
 		try {
 			
+			//On récupère les données envoyés par ajaxlogin.js
 			String user = request.getParameter("user");
 			String password = request.getParameter("password");
 
 	        System.out.println(user);
 	        System.out.println(password);
 	        
-	        /*Cookie c_user = new Cookie("user", user);
-			c_user.setMaxAge(60 * 60 * 24);
-			response.addCookie(c_user);
-			
-			Cookie c_password = new Cookie("password", password);
-			c_password.setMaxAge(60 * 60 * 24);
-			response.addCookie(c_password);*/
-	        
+	        //Vérification des données
+	        //VERIFICATION DATABASE ICI
 	        if(user.equals("admin") && password.equals("admin_pass")) {
+	        	
+	        	//Si les données sont bonnes, on créé le cookie de session HoG
+	        	Cookie c_user = new Cookie("HoG_user", user);
+				c_user.setMaxAge(60 * 60 * 24);
+				response.addCookie(c_user);
+	        	
+				//On envoie la donnée de confirmation à ajaxlogin.js (le "data" dans le success)
 	        	out.write("1");
 	        }
+	        //Sinon on envoie aucune donnée de confirmation
 			
 		} catch (Exception e) {
 			e.printStackTrace();
