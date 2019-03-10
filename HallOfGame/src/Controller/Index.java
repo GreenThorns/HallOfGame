@@ -41,8 +41,8 @@ public class Index extends HttpServlet {
 				if(r_c.getName().equals("HoG_user")) {
 					cookie_found = true;
 					//Le Cookie existe donc on passe directement à sa lecture
-					RequestDispatcher rd_showSession = request.getRequestDispatcher("/ReadCookies");
-					rd_showSession.forward(request, response);
+					RequestDispatcher rd_readcookies = request.getRequestDispatcher("/ReadCookies");
+					rd_readcookies.forward(request, response);
 				}
 			}
 			

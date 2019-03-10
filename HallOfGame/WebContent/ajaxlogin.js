@@ -12,7 +12,7 @@ $(document).ready(function(e){ //dès que le doc est chargé
 		    data:{"user":user,"password":pwd},
 		    success: function (data) { //Si la fonction s'est bien exécutée, on récupère les données de confirmation
 		         if(data == "1"){ //Si le user et password sont bons, on lit les infos du cookie de session HoG
-		        	 window.location.replace(website + "ReadCookies");
+		        	 window.location.replace(website); //Renvoie au Servlet Index
 		         } else {
 		        	 alert("Wrong Credentials");
 		         }
