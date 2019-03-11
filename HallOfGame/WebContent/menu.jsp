@@ -19,6 +19,6 @@
 <p>Menu</p>
 <p>Vous êtes connecté!</p>
 Salut <%= user.getUser() %><br>
-<button type="button" class="btn btn-danger" value="Deconnexion" id="disconnect">Primary</button>
+<button type="button" class="btn btn-danger" id="disconnect">Deconnexion</button>
 </body>
 </html>
